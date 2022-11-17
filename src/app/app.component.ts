@@ -13,13 +13,15 @@ export class AppComponent implements OnInit {
 
   // @ts-ignore
   public expenses: Expense[];
+  // @ts-ignore
+  public deleteExpense: Expense;
 
   constructor(private expenseService: ExpenseService) {
 
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     this.getExpenses();
 
@@ -49,8 +51,18 @@ export class AppComponent implements OnInit {
    }
    );
 
+ }
 
-
+ public OnDeleteExpense(expenseId : number): void{
+    this.expenseService.deleteExpense(expenseId).subscribe(
+      (response:void) => {
+        console.log(response)
+        this.getExpenses();
+      },
+    (error: HttpErrorResponse) => {
+        alert(error.message);
+   }
+    );
  }
 
 
@@ -71,6 +83,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#updateExpenseModal');
     }
     if (mode === 'delete') {
+      this.deleteExpense = expense;
       button.setAttribute('data-target', '#deleteExpenseModal');
     }
     // @ts-ignore

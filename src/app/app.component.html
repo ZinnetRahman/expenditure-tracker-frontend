@@ -23,7 +23,7 @@
 
 
 <div class="container " id="main-container1">
-  <table class="table ">
+  <table class="table css-serial">
 
     <thead>
     <tr>
@@ -37,7 +37,7 @@
 
     <tbody>
     <tr *ngFor="let expense of expenses">
-      <td>{{expense.id}}</td>
+      <td></td>
       <td>{{expense.itemName}}</td>
       <td>{{expense.amount}}</td>
       <td>{{expense.expenseDate}}</td>
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group">
                <label for="amount">Amount</label>
-               <input type="text" ngModel name="amount" class="form-control" id="amoun1t" placeholder="Amount" required>
+               <input type="text" ngModel name="amount" class="form-control" id="amount1" placeholder="Amount" required>
             </div>
             <div class="form-group">
                <label for="expenseDate">Expense Date</label>
@@ -117,7 +117,7 @@
 
             <div class="modal-footer">
               <button type="button" id="update-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button  type="submit" class="btn btn-primary" >Save changes</button>
+              <button  type="submit" class="btn btn-primary"  onClick="location.reload()"  >Save changes</button>
             </div>
           </form>
         </div>
@@ -136,11 +136,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <p>Are you sure you want to delete the expense?</p>
+        <div class="modal-body" *ngIf="deleteExpense">
+          <p>Are you sure you want to delete the expense <b>"{{deleteExpense.itemName}}"</b> ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-            <button  class="btn btn-danger" data-dismiss="modal">Yes</button>
+            <button (click)="OnDeleteExpense(deleteExpense.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
           </div>
         </div>
       </div>
