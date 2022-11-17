@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
   // @ts-ignore
   public deleteExpense: Expense;
 
+  // @ts-ignore
+  public updateExpense: Expense;
+
   constructor(private expenseService: ExpenseService) {
 
 
@@ -66,6 +69,19 @@ export class AppComponent implements OnInit {
  }
 
 
+  public OnUpdateExpense(expense : Expense): void{
+    this.expenseService.updateExpense(expense).subscribe(
+      (response: Expense) => {
+        console.log(response)
+        this.getExpenses();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+
 
 
 
@@ -79,6 +95,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#addExpenseModal');
     }
     if (mode === 'edit') {
+      this.updateExpense = expense;
 
       button.setAttribute('data-target', '#updateExpenseModal');
     }

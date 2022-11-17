@@ -38,9 +38,9 @@
     <tbody>
     <tr *ngFor="let expense of expenses">
       <td>.</td>
-      <td>{{expense.itemName}}</td>
-      <td>{{expense.amount}}</td>
-      <td>{{expense.expenseDate}}</td>
+      <td>{{expense?.itemName}}</td>
+      <td>{{expense?.amount}}</td>
+      <td>{{expense?.expenseDate}}</td>
       <td>
         <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal" ><i class="material-icons">edit</i></a>
         <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i class="material-icons">delete</i></a>
@@ -58,7 +58,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+            <h5 class="modal-title" id="addEmployeeModalLabel">Add Expense</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -80,7 +80,7 @@
 
             <div class="modal-footer">
 
-               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
                <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" onClick="location.reload()">Create</button>
             </div>
             </form>
@@ -95,29 +95,29 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateExpenseModalLabel">Edit Employee</h5>
+          <h5 class="modal-title" id="updateExpenseModalLabel">Edit Expense</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form #editForm="ngForm" >
             <div class="form-group">
               <label for="itemName">Item Name</label>
-              <input type="text"  class="form-control" id="itemName" placeholder="Item Name" required>
+              <input type="text" ngModel="{{updateExpense?.itemName}}" name="itemName" class="form-control" id="itemName" placeholder="Item Name" required>
             </div>
-            <div class="form-group">
+            <div class="form-group" >
               <label for="amount">Amount</label>
-              <input type="text"  name="amount" class="form-control" id="amount" placeholder="Amount" required>
+              <input type="text" ngModel="{{updateExpense?.amount}}" name="amount" class="form-control" id="amount" placeholder="Amount" required>
             </div>
-            <div class="form-group">
+            <div class="form-group" >
               <label for="expenseDate">Expense Date</label>
-              <input type="date"  name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" required>
+              <input  type="date" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" required>
             </div>
 
             <div class="modal-footer">
-              <button type="button" id="update-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button  type="submit" class="btn btn-primary"  onClick="location.reload()"  >Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button  (click)="OnUpdateExpense(editForm.value)" type="submit" class="btn btn-primary"   >Save changes</button>
             </div>
           </form>
         </div>
@@ -133,11 +133,11 @@
         <div class="modal-header">
           <h5 class="modal-title" id="deleteModelLabel">Delete Expense</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" onClick="location.reload()" >&times;</span>
           </button>
         </div>
-        <div class="modal-body" *ngIf="deleteExpense">
-          <p>Are you sure you want to delete the expense <b>"{{deleteExpense.itemName}}"</b> ?</p>
+        <div class="modal-body" >
+          <p>Are you sure you want to delete the expense <b>"{{deleteExpense?.itemName}}"</b> ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
             <button (click)="OnDeleteExpense(deleteExpense.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
