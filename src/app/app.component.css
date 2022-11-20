@@ -6,3 +6,4 @@
   counter-increment: serial-number;  /* Increment the serial number counter */
   content: counter(serial-number);  /* Display the counter */
 }
+

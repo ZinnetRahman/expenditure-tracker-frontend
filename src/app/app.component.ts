@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 
   }
 
+  p:any;
 
   public getExpenses(): void {
     this.expenseService.getAllExpenses().subscribe(
@@ -131,5 +132,9 @@ export class AppComponent implements OnInit {
     container.appendChild(button);
     button.click();
   }
+
+
+
+
 
 }

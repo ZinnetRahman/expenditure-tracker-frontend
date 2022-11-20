@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid" id="main-container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Expenditure Tracker</a>
+      <a class="navbar-brand" >Expenditure Tracker</a>
     </div>
     <form class="navbar-form navbar-right" >
       <div class="form-group">
@@ -36,7 +36,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let expense of expenses">
+    <tr *ngFor="let expense of expenses | paginate:{ itemsPerPage: 5, currentPage: p }" >
       <td>.</td>
       <td>{{expense?.itemName}}</td>
       <td>{{expense?.amount}}</td>
@@ -50,6 +50,8 @@
 
 
   </table>
+
+
 
 
 <!--  Add modal-->
@@ -147,6 +149,11 @@
       </div>
     </div>
   </div>
+
+  <pagination-controls
+    (pageChange)="p = $event"
+    class="float-left">
+  </pagination-controls>
 </div>
 
 
