@@ -83,6 +83,30 @@ export class AppComponent implements OnInit {
 
 
 
+  public searchExpenses(key: string): void {
+    console.log(key);
+    const results: Expense[] = [];
+    for (const expense of this.expenses) {
+      if (expense.itemName.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || expense.amount.toLowerCase().indexOf(key.toLowerCase()) !== -1
+        || expense.expenseDate.toString().indexOf(key.toString()) !== -1){
+        results.push(expense);
+      }
+    }
+    this.expenses = results;
+    if (results.length === 0 || !key) {
+      this.getExpenses();
+    }
+  }
+
+
+
+
+
+
+
+
+
 
 
   public onOpenModal(expense: any, mode: string): void {
