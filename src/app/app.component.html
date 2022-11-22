@@ -30,7 +30,7 @@
       <th>Serial No.</th>
       <th>Item Name</th>
       <th>Amount</th>
-      <th>Expense Date</th>
+      <th>Expense Date & Time</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -76,8 +76,8 @@
                <input type="text" ngModel name="amount" class="form-control" id="amount1" placeholder="Amount" required>
             </div>
             <div class="form-group">
-               <label for="expenseDate">Expense Date</label>
-               <input type="date" ngModel name="expenseDate" class="form-control" id="expenseDate" placeholder="Expense Date" required>
+               <label for="expenseDate">Expense Date & Time</label>
+               <input type="datetime-local" ngModel name="expenseDate" class="form-control" id="expenseDate" placeholder="Expense Date" required>
             </div>
 
             <div class="modal-footer">
@@ -114,8 +114,8 @@
               <input type="text" ngModel="{{updateExpense?.amount}}" name="amount" class="form-control" id="amount" placeholder="Amount" required>
             </div>
             <div class="form-group" >
-              <label for="expenseDate">Expense Date</label>
-              <input  type="date" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" required>
+              <label for="expenseDate">Expense Date & Time</label>
+              <input  type="datetime-local" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" required>
             </div>
 
             <div class="modal-footer">
