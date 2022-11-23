@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     this.expenseService.getAllExpenses().subscribe(
       (response: Expense[]) => {
         this.expenses = response;
-        console.log(this.expenses);
+        console.log(this.expenses.reverse());
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -99,14 +99,6 @@ export class AppComponent implements OnInit {
       this.getExpenses();
     }
   }
-
-
-
-
-
-
-
-
 
 
 
