@@ -43,7 +43,7 @@
       <td>{{expense?.itemName}}</td>
       <td>{{expense?.amount}}</td>
       <td>{{expense?.expenseDate}}</td>
-      <td>{{expense?.fileName}}</td>
+      <td><a  href="#" class="pe-auto">{{expense?.fileName}}</a></td>
       <td>
         <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal" ><i class="material-icons">edit</i></a>
         <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i class="material-icons">delete</i></a>
@@ -99,11 +99,7 @@
                   </label>
                 </div>
 
-                <div class="col-4 form-group" >
-                  <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
-                    Upload
-                  </button>
-                </div>
+
               </div>
 
 

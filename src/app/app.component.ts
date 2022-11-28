@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
 
   public OnAddExpense(addForm: NgForm): void {
 
+    this.upload();
 
     this.expenseService.addExpense(addForm.value).subscribe(
       (response: Expense) => {
