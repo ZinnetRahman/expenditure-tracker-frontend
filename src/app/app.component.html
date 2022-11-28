@@ -5,8 +5,9 @@
     </div>
     <form class="navbar-form navbar-right" >
       <div class="form-group">
-        <input type="search" (ngModelChange)="searchExpenses(key.value)" #key="ngModel" ngModel
-               name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search expenses..." required>
+        <input type="search" (ngModelChange)="searchExpenses($event)"  ngModel
+               name="itemName" id="searchExpenseModal" class="form-control mr-sm-2" placeholder="Search expenses..." required>
+
       </div>
     </form>
   </div>
@@ -31,6 +32,7 @@
       <th>Item Name</th>
       <th>Amount</th>
       <th>Expense Date & Time</th>
+      <th>Files</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -41,6 +43,7 @@
       <td>{{expense?.itemName}}</td>
       <td>{{expense?.amount}}</td>
       <td>{{expense?.expenseDate}}</td>
+      <td>{{expense?.fileName}}</td>
       <td>
         <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal" ><i class="material-icons">edit</i></a>
         <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i class="material-icons">delete</i></a>
@@ -50,6 +53,7 @@
 
 
   </table>
+
 
 
 
@@ -80,10 +84,37 @@
                <input type="datetime-local" ngModel name="expenseDate" class="form-control" id="expenseDate" placeholder="Expense Date" required>
             </div>
 
+
+<!--              <div class="form-group">-->
+<!--                <label>Files</label>-->
+<!--                <input type="file" ngModel name="fileName" class="form-control"  placeholder="File">-->
+<!--              </div>-->
+
+
+
+              <div class="row form-group">
+                <div class="col-8">
+                  <label class="btn btn-default p-0">
+                    <input type="file" ngModel name="fileName" (change)="selectFile($event)" />
+                  </label>
+                </div>
+
+                <div class="col-4 form-group" >
+                  <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+                    Upload
+                  </button>
+                </div>
+              </div>
+
+
+
+
+
+
             <div class="modal-footer">
 
                <button type="button" id="add-expense-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" onClick="location.reload()">Create</button>
+               <button [disabled]="addForm.invalid && !selectedFiles" type="submit" class="btn btn-primary" onClick="location.reload()">Create</button>
             </div>
             </form>
          </div>
