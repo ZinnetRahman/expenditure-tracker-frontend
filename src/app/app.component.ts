@@ -55,7 +55,6 @@ export class AppComponent implements OnInit {
     this.expenseService.getAllExpenses().subscribe(
       (response: Expense[]) => {
         this.expenses = response;
-        console.log(this.expenses.reverse());
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -65,7 +64,7 @@ export class AppComponent implements OnInit {
 
   public OnAddExpense(addForm: NgForm): void {
 
-    this.upload();
+
 
     this.expenseService.addExpense(addForm.value).subscribe(
       (response: Expense) => {
@@ -76,6 +75,7 @@ export class AppComponent implements OnInit {
         alert(error.message);
       }
     );
+    this.upload();
 
   }
 
