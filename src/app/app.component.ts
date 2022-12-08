@@ -48,6 +48,8 @@ export class AppComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+    // @ts-ignore
+    frame.src=URL.createObjectURL(event.target.files[0]);
   }
 
 
@@ -65,6 +67,7 @@ export class AppComponent implements OnInit {
   public OnAddExpense(addForm: NgForm): void {
 
 
+    this.upload();
 
     this.expenseService.addExpense(addForm.value).subscribe(
       (response: Expense) => {
@@ -75,7 +78,6 @@ export class AppComponent implements OnInit {
         alert(error.message);
       }
     );
-    this.upload();
 
   }
 
@@ -125,22 +127,6 @@ export class AppComponent implements OnInit {
   }
 
 
-
-  // public searchExpenses(key: string): void {
-  //   console.log(key);
-  //   const results: Expense[] = [];
-  //   for (const expense of this.expenses) {
-  //     if (expense.itemName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-  //       || expense.amount.toLowerCase().indexOf(key.toLowerCase()) !== -1
-  //       || expense.expenseDate.toString().indexOf(key.toString()) !== -1){
-  //       results.push(expense);
-  //     }
-  //   }
-  //   this.expenses = results;
-  //   if (results.length === 0 || !key) {
-  //     this.getExpenses();
-  //   }
-  // }
 
 
 

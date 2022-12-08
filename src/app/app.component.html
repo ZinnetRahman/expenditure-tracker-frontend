@@ -43,7 +43,7 @@
       <td>{{expense?.itemName}}</td>
       <td>{{expense?.amount}}</td>
       <td>{{expense?.expenseDate}}</td>
-      <td><a  href="#" class="pe-auto">{{expense?.fileName}}</a></td>
+      <td><a class="pe-auto " ><img src="{{ expense?.fileName }}" alt="not available" width="100px" height="100px" /></a></td>
       <td>
         <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal" ><i class="material-icons">edit</i></a>
         <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i class="material-icons">delete</i></a>
@@ -94,7 +94,10 @@
               <div class="form-group">
                 <label>Upload File</label>
                 <input type="file" ngModel name="fileName" (change)="selectFile($event)">
+                <img id="frame" src="" alt="" width="100px" height="100px"/>
               </div>
+
+
 
 
 <!--              <div class="row form-group">-->
@@ -147,8 +150,16 @@
             </div>
             <div class="form-group" >
               <label for="expenseDate">Expense Date & Time</label>
-              <input  type="datetime-local" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" required>
+              <input  type="datetime-local" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" >
             </div>
+            <div class="form-group">
+              <label>Edit File</label>
+              <input type="file" ngModel name="fileName" (change)="selectFile($event)">
+              <img id="frame1" src="{{updateExpense?.fileName}}" alt="" width="100px" height="100px"/>
+            </div>
+
+
+
 
             <div class="modal-footer">
               <button type="button" id="" class="btn btn-secondary" data-dismiss="modal">Close</button>
