@@ -7,7 +7,6 @@
       <div class="form-group">
         <input type="search" (ngModelChange)="searchExpenses($event)"  ngModel
                name="itemName" id="searchExpenseModal" class="form-control mr-sm-2" placeholder="Search expenses..." required>
-
       </div>
     </form>
   </div>
@@ -21,7 +20,6 @@
   <a (click)="onOpenModal(null, 'add')" class="btn btn-primary" data-toggle="modal" title="Add your expense">
     <span class="glyphicon glyphicon-plus"  aria-hidden="true"></span><b>Add New</b></a>
 </div>
-
 
 <div class="container " id="main-container1">
   <table class="table css-serial">
@@ -53,9 +51,6 @@
 
 
   </table>
-
-
-
 
 
 <!--  Add modal-->
@@ -98,9 +93,6 @@
     </div>
     </div>
 
-
-
-
   <!-- Edit Modal-->
   <div class="modal fade" id="updateExpenseModal" tabindex="-1" role="dialog" aria-labelledby="updateExpenseModal" aria-hidden="true">-->
     <div class="modal-dialog" role="document">
@@ -124,7 +116,7 @@
             </div>
             <div class="form-group" >
               <label for="expenseDate">Expense Date & Time</label>
-              <input  type="datetime-local" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" >
+              <input  type="datetime" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" >
             </div>
             <div class="form-group">
               <label>Edit File</label>
@@ -133,14 +125,13 @@
             </div>
               <div class="modal-footer">
               <button type="button" id="" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button  (click)="OnUpdateExpense(editForm.value)" type="submit" class="btn btn-primary" onClick="location.reload()" >Save changes</button>
+              <button  (click)="OnUpdateExpense(editForm.value)" type="submit" class="btn btn-primary" onClick="location.reload()" >Update changes</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- Delete Modal -->
   <div class="modal fade" id="deleteExpenseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">

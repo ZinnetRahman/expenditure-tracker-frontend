@@ -4,7 +4,6 @@ import {ExpenseService} from "./expense.service";
 import {FormControl, FormGroup, NgForm} from "@angular/forms";
 import {HttpClient, HttpErrorResponse, HttpEventType, HttpResponse} from "@angular/common/http";
 import {Observable, Subject, switchMap} from "rxjs";
-import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -17,16 +16,9 @@ export class AppComponent implements OnInit {
   public expenses: Expense[];
   // @ts-ignore
   public deleteExpense: Expense;
-
   // @ts-ignore
   public updateExpense: Expense;
-
-
-
-
-
   p: any;
-
   selectedFiles?: FileList;
   currentFile?: File;
   fileInfos?: Observable<any>;
@@ -34,24 +26,21 @@ export class AppComponent implements OnInit {
   message = '';
 
   constructor(private expenseService: ExpenseService) {
-
-
-
   }
 
   ngOnInit() {
 
     this.getExpenses();
-
-  }
+}
 
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     // @ts-ignore
     frame.src=URL.createObjectURL(event.target.files[0]);
+    // @ts-ignore
+    frame1.src=URL.createObjectURL(event.target.files[0]);
   }
-
 
   public getExpenses(): void {
     this.expenseService.getAllExpenses().subscribe(
@@ -66,7 +55,6 @@ export class AppComponent implements OnInit {
 
   public OnAddExpense(addForm: NgForm): void {
 
-
     this.upload();
 
     this.expenseService.addExpense(addForm.value).subscribe(
@@ -80,7 +68,6 @@ export class AppComponent implements OnInit {
     );
 
   }
-
   public OnDeleteExpense(expenseId: number): void {
     this.expenseService.deleteExpense(expenseId).subscribe(
       (response: void) => {
@@ -92,9 +79,11 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
-
   public OnUpdateExpense(expense: Expense): void {
+
+    console.log(expense.expenseDate)
+
+    this.upload();
     this.expenseService.updateExpense(expense).subscribe(
       (response: Expense) => {
         console.log(response)
@@ -105,10 +94,6 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
-
-
-  // @ts-ignore
   public searchExpenses(itemName: String): void {
 
     this.expenseService.searchExpense(itemName).subscribe(
@@ -121,42 +106,8 @@ export class AppComponent implements OnInit {
       (error: HttpErrorResponse) => {
 
         this.getExpenses();
-                  // alert(error.message);
       }
     );
-  }
-
-
-
-
-
-
-
-
-
-
-  public onOpenModal(expense: any, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addExpenseModal');
-    }
-    if (mode === 'edit') {
-      this.updateExpense = expense;
-
-      button.setAttribute('data-target', '#updateExpenseModal');
-    }
-    if (mode === 'delete') {
-      this.deleteExpense = expense;
-      button.setAttribute('data-target', '#deleteExpenseModal');
-    }
-
-    // @ts-ignore
-    container.appendChild(button);
-    button.click();
   }
 
   upload(): void {
@@ -186,7 +137,27 @@ export class AppComponent implements OnInit {
       // console.log(file);
     }
   }
+  public onOpenModal(expense: any, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if (mode === 'add') {
+      button.setAttribute('data-target', '#addExpenseModal');
+    }
+    if (mode === 'edit') {
+      this.updateExpense = expense;
 
-
+      button.setAttribute('data-target', '#updateExpenseModal');
+    }
+    if (mode === 'delete') {
+      this.deleteExpense = expense;
+      button.setAttribute('data-target', '#deleteExpenseModal');
+    }
+    // @ts-ignore
+    container.appendChild(button);
+    button.click();
+  }
 
 }

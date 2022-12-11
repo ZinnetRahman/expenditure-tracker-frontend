@@ -27,9 +27,6 @@ export class ExpenseService {
   public searchExpense(itemName : String): Observable<any> {
      return  this.http.get(`${this.apiUrl}/expense/find/${itemName}`)
   }
-
-
-
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
@@ -39,7 +36,6 @@ export class ExpenseService {
     });
     return this.http.request(req);
   }
-
   getFiles(): Observable<any> {
     return this.http.get(`${this.apiUrl}/expense/files`);
   }
