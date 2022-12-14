@@ -1,12 +1,13 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid" id="main-container">
     <div class="navbar-header">
-      <a class="navbar-brand" >Expenditure Tracker</a>
+      <a class="navbar-brand">Expenditure Tracker</a>
     </div>
-    <form class="navbar-form navbar-right" >
+    <form class="navbar-form navbar-right">
       <div class="form-group">
-        <input type="search" (ngModelChange)="searchExpenses($event)"  ngModel
-               name="itemName" id="searchExpenseModal" class="form-control mr-sm-2" placeholder="Search expenses..." required>
+        <input type="search" (ngModelChange)="searchExpenses($event)" ngModel
+               name="itemName" id="searchExpenseModal" class="form-control mr-sm-2" placeholder="Search expenses..."
+               required>
       </div>
     </form>
   </div>
@@ -18,7 +19,7 @@
 
 <div>
   <a (click)="onOpenModal(null, 'add')" class="btn btn-primary" data-toggle="modal" title="Add your expense">
-    <span class="glyphicon glyphicon-plus"  aria-hidden="true"></span><b>Add New</b></a>
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>Add New</b></a>
 </div>
 
 <div class="container " id="main-container1">
@@ -36,15 +37,18 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let expense of expenses | paginate:{ itemsPerPage: 5, currentPage: p }" >
+    <tr *ngFor="let expense of expenses | paginate:{ itemsPerPage: 5, currentPage: p }">
       <td>.</td>
       <td>{{expense?.itemName}}</td>
       <td>{{expense?.amount}}</td>
-      <td>{{expense?.expenseDate}}</td>
-      <td><a class="pe-auto " ><img src="{{ expense?.fileName }}" alt="not available" width="100px" height="100px" /></a></td>
+      <td>{{expense?.expenseDate | date: 'dd-MMM-yyyy hh:mm a'}}</td>
+      <td><a class="pe-auto "><img src="{{ expense?.fileName }}" alt="not available" width="100px" height="100px"/></a>
+      </td>
       <td>
-        <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal" ><i class="material-icons">edit</i></a>
-        <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i class="material-icons">delete</i></a>
+        <a (click)="onOpenModal(expense,'edit')" class="edit btn " title="Edit" data-toggle="modal"><i
+          class="material-icons">edit</i></a>
+        <a (click)="onOpenModal(expense,'delete')" class="delete btn" title="Delete" data-toggle="modal"><i
+          class="material-icons">delete</i></a>
       </td>
     </tr>
     </tbody>
@@ -53,48 +57,54 @@
   </table>
 
 
-<!--  Add modal-->
+  <!--  Add modal-->
 
-  <div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">-->
+  <div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+       aria-hidden="true">-->
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="addEmployeeModalLabel">Add Expense</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add Expense</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form #addForm="ngForm" (ngSubmit)="OnAddExpense(addForm)">
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="OnAddExpense(addForm)">
             <div class="form-group">
-               <label for="itemName">Item Name</label>
-               <input type="text"   ngModel name="itemName" class="form-control" id="itemName1" placeholder="Item Name" required>
-            </div>
-            <div class="form-group">
-               <label for="amount">Amount</label>
-               <input type="text" ngModel name="amount" class="form-control" id="amount1" placeholder="Amount" required>
+              <label for="itemName">Item Name</label>
+              <input type="text" ngModel name="itemName" class="form-control" id="itemName1" placeholder="Item Name"
+                     required>
             </div>
             <div class="form-group">
-               <label for="expenseDate">Expense Date & Time</label>
-               <input type="datetime-local" ngModel name="expenseDate" class="form-control" id="expenseDate" placeholder="Expense Date" required>
+              <label for="amount">Amount</label>
+              <input type="text" ngModel name="amount" class="form-control" id="amount1" placeholder="Amount" required>
             </div>
-              <div class="form-group">
-                <label>Upload File</label>
-                <input type="file" ngModel name="fileName" (change)="selectFile($event)">
-                <img id="frame" src="" alt="" width="100px" height="100px"/>
-              </div>
-          <div class="modal-footer">
-               <button type="button" id="add-expense-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid && !selectedFiles" type="submit" class="btn btn-primary" onClick="location.reload()">Create</button>
+            <div class="form-group">
+              <label for="expenseDate">Expense Date & Time</label>
+              <input type="datetime-local" ngModel name="expenseDate" class="form-control" id="expenseDate"
+                     placeholder="Expense Date" required>
             </div>
-            </form>
-         </div>
+            <div class="form-group">
+              <label>Upload File</label>
+              <input type="file" ngModel name="fileName" (change)="selectFile($event)">
+              <img id="frame" src="" alt="" width="100px" height="100px"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="add-expense-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button [disabled]="addForm.invalid && !selectedFiles" type="submit" class="btn btn-primary"
+                      onClick="location.reload()">Create
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    </div>
+  </div>
 
   <!-- Edit Modal-->
-  <div class="modal fade" id="updateExpenseModal" tabindex="-1" role="dialog" aria-labelledby="updateExpenseModal" aria-hidden="true">-->
+  <div class="modal fade" id="updateExpenseModal" tabindex="-1" role="dialog" aria-labelledby="updateExpenseModal"
+       aria-hidden="true">-->
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -104,28 +114,35 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #editForm="ngForm" >
+          <form #editForm="ngForm">
             <div class="form-group">
               <label for="itemName">Item Name</label>
-              <input type="text" ngModel="{{updateExpense?.itemName}}" name="itemName" class="form-control" id="itemName" placeholder="Item Name" required>
+              <input type="text" ngModel="{{updateExpense?.itemName}}" name="itemName" class="form-control"
+                     id="itemName" placeholder="Item Name" required>
             </div>
-            <input type="hidden" ngModel="{{updateExpense?.id}}" name="id" class="form-control" id="id" placeholder="itemName">
-            <div class="form-group" >
+            <input type="hidden" ngModel="{{updateExpense?.id}}" name="id" class="form-control" id="id"
+                   placeholder="itemName">
+            <div class="form-group">
               <label for="amount">Amount</label>
-              <input type="text" ngModel="{{updateExpense?.amount}}" name="amount" class="form-control" id="amount" placeholder="Amount" required>
+              <input type="text" ngModel="{{updateExpense?.amount}}" name="amount" class="form-control" id="amount"
+                     placeholder="Amount" required>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label for="expenseDate">Expense Date & Time</label>
-              <input  type="datetime" ngModel="{{updateExpense?.expenseDate}}" name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date" >
+              <input type="datetime-local" ngModel="{{updateExpense?.expenseDate |  date:'YYYY-MM-ddTHH:mm'}}"
+                     name="expenseDate" class="form-control" id="expenseDate1" placeholder="Expense Date">
             </div>
+
             <div class="form-group">
               <label>Edit File</label>
               <input type="file" ngModel name="fileName" (change)="selectFile($event)">
               <img id="frame1" src="{{updateExpense?.fileName}}" alt="" width="100px" height="100px"/>
             </div>
-              <div class="modal-footer">
+            <div class="modal-footer">
               <button type="button" id="" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button  (click)="OnUpdateExpense(editForm.value)" type="submit" class="btn btn-primary" onClick="location.reload()" >Update changes</button>
+              <button (click)="OnUpdateExpense(editForm.value)" type="submit" class="btn btn-primary"
+                      onClick="location.reload()">Update changes
+              </button>
             </div>
           </form>
         </div>
@@ -134,16 +151,17 @@
   </div>
 
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteExpenseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteExpenseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+       aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="deleteModelLabel">Delete Expense</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" onClick="location.reload()" >&times;</span>
+            <span aria-hidden="true" onClick="location.reload()">&times;</span>
           </button>
         </div>
-        <div class="modal-body" >
+        <div class="modal-body">
           <p>Are you sure you want to delete the expense <b>"{{deleteExpense?.itemName}}"</b> ?</p>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

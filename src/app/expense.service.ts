@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {Expense} from "./expense";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
+import {ExpenseResponseDTO} from "./ExpenseResponseDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ExpenseService {
   constructor(private http: HttpClient) { }
 
   public getAllExpenses(): Observable<Expense[]> {
-    return this.http.get<Expense[]>(`${this.apiUrl}/expense/all`);
+    return this.http.get<ExpenseResponseDTO[]>(`${this.apiUrl}/expense/all`);
   }
   public addExpense(expense : Expense): Observable<Expense> {
     return this.http.post<Expense>(`${this.apiUrl}/expense/add`, expense);

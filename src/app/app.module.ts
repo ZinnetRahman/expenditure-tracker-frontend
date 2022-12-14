@@ -6,6 +6,7 @@ import {ExpenseService} from "./expense.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import {NgxPaginationModule} from "ngx-pagination";
   imports: [
     BrowserModule,
     HttpClientModule ,FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule, DatePipe
   ],
   providers: [ExpenseService],
   bootstrap: [AppComponent]

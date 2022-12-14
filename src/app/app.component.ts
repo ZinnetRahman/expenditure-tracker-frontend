@@ -4,11 +4,14 @@ import {ExpenseService} from "./expense.service";
 import {FormControl, FormGroup, NgForm} from "@angular/forms";
 import {HttpClient, HttpErrorResponse, HttpEventType, HttpResponse} from "@angular/common/http";
 import {Observable, Subject, switchMap} from "rxjs";
+import {DatePipe} from "@angular/common";
+import {ExpenseResponseDTO} from "./ExpenseResponseDTO";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [DatePipe]
 })
 export class AppComponent implements OnInit {
 
@@ -31,21 +34,31 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     this.getExpenses();
-}
+  }
 
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
     // @ts-ignore
-    frame.src=URL.createObjectURL(event.target.files[0]);
+    frame.src = URL.createObjectURL(event.target.files[0]);
     // @ts-ignore
-    frame1.src=URL.createObjectURL(event.target.files[0]);
+    frame1.src = URL.createObjectURL(event.target.files[0]);
   }
 
   public getExpenses(): void {
+    this.expenses = [];
     this.expenseService.getAllExpenses().subscribe(
-      (response: Expense[]) => {
-        this.expenses = response;
+      (response: ExpenseResponseDTO[]) => {
+
+        for (let i = 0; i < response.length; ++i) {
+
+          let expense = {
+            id: response[i].id, itemName: response[i].itemName,
+            amount: response[i].amount, expenseDate: new Date(response[i].expenseDate), fileName: response[i].fileName
+          };
+          this.expenses.push(expense);
+        }
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -68,6 +81,7 @@ export class AppComponent implements OnInit {
     );
 
   }
+
   public OnDeleteExpense(expenseId: number): void {
     this.expenseService.deleteExpense(expenseId).subscribe(
       (response: void) => {
@@ -79,6 +93,7 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
   public OnUpdateExpense(expense: Expense): void {
 
     console.log(expense.expenseDate)
@@ -94,10 +109,10 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
   public searchExpenses(itemName: String): void {
 
     this.expenseService.searchExpense(itemName).subscribe(
-
       (response: void) => {
         console.log(response)
         // @ts-ignore
@@ -137,6 +152,42 @@ export class AppComponent implements OnInit {
       // console.log(file);
     }
   }
+
+  myFunction(): void {
+    // @ts-ignore
+    document.getElementById("expenseDate1").value = this.updateExpense.expenseDate;
+    var myDateTime = new Date(this.updateExpense.expenseDate * 1000);
+    console.log(myDateTime)
+    const [date, time] = this.formatDate(myDateTime).split(' ');
+    console.log(date);
+    console.log(time);
+
+    // @ts-ignore
+    document.getElementById("expenseDate1").value = date + 'T' + time;
+
+  }
+
+
+  formatDate(date: Date) {
+    return (
+      [
+        date.getFullYear(),
+        this.padTo2Digits(date.getMonth() + 1),
+        this.padTo2Digits(date.getDate()),
+      ].join('-') +
+      ' ' +
+      [
+        this.padTo2Digits(date.getHours()),
+        this.padTo2Digits(date.getMinutes()),
+        // padTo2Digits(date.getSeconds()),
+      ].join(':')
+    );
+  }
+
+  padTo2Digits(num: Number) {
+    return num.toString().padStart(2, '0');
+  }
+
   public onOpenModal(expense: any, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
